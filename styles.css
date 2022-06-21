@@ -1,0 +1,44 @@
+* {
+  margin: 0;  
+}
+
+body {
+     overflow: hidden;
+}
+
+.webgl {
+     width: 100vw;
+     height: 100vh;
+}
+
+.labels-container {
+     position: absolute;
+     left: 35px;
+     top: 40px;
+
+     display: flex;
+     align-items: center;
+}
+
+.label {
+     width: 50px;
+     height: 50px;
+     color: white;
+     display: grid;
+     place-items: center;
+     font-family: Helvetica, sans-serif;
+     font-size: 14px;
+     cursor: pointer;
+}
+
+.label:nth-child(1){
+     background: #2B55D8;
+}
+
+.label:nth-child(2){
+    background: #16E019;
+}
+
+.label:nth-child(3){
+    background: #E82121;
+}
