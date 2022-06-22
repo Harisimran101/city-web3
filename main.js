@@ -23,7 +23,10 @@ const scene = new THREE.Scene();
 
 const camera = new THREE.PerspectiveCamera( 65, size.width / size.height , 0.01, 10000 );
 
-camera.position.z = 80;
+camera.position.z = 120;
+camera.position.y = 25;
+
+
 
 // Renderer
 
@@ -66,6 +69,26 @@ function onWindowResize() {
   camera.updateProjectionMatrix()
   renderer.setSize(size.width, size.height)
 }
+
+// Raycaster
+
+const raycaster = new THREE.Raycaster();
+const pointer = new THREE.Vector2();
+
+function onPointerMove( event ) {
+
+	// calculate pointer position in normalized device coordinates
+	// (-1 to +1) for both components
+
+	pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+	pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
+}
+
+window.addEventListener( 'pointermove', onPointerMove );
+
+
+
 
 
 // Environment
@@ -119,16 +142,92 @@ const modelloader = new GLTFLoader();
 modelloader.load('city.glb', (gltf) =>{
      model = gltf.scene;
      scene.add(model)
+     console.log(model.getObjectByName('Red-section'))
 
 })
+
+window.addEventListener('click', () =>{
+
+
+    raycaster.setFromCamera( pointer, camera );
+   
+    // calculate objects intersecting the picking ray
+    const intersects = raycaster.intersectObjects( scene.children );
+
+
+        if(intersects.length > 0){
+
+            console.log(intersects[0])
+
+            if(intersects[0].object.name == 'Red-section'){
+                anime({
+                    targets: camera.position,
+                    x: [camera.position.x,intersects[0].object.position.x],
+                    y: [camera.position.y,intersects[0].object.position.y + 50],
+    
+                    z: [camera.position.z,intersects[0].object.position.z + 120],
+                    delay: 200,
+                    easing: 'easeInOutSine'
+                  })
+            }
+
+
+             if(intersects[0].object.name == 'blue-section'){
+               
+              anime({
+                targets: camera.position,
+                x: [camera.position.x,intersects[0].object.position.x],
+                y: [camera.position.y,intersects[0].object.position.y + 50],
+
+                z: [camera.position.z,intersects[0].object.position.z + 20],
+                delay: 200,
+                easing: 'easeInOutSine'
+
+              })
+
+             }
+
+            else if(intersects[0].object.name == 'green-section'){
+    
+
+                anime({
+                    targets: camera.position,
+                    x: [camera.position.x,intersects[0].object.position.x],
+                    y: [camera.position.y,intersects[0].object.position.y + 50],
+    
+                    z: [camera.position.z,intersects[0].object.position.z + 20],
+                    delay: 200,
+                    easing: 'easeInOutSine'
+
+                  })
+            }
+
+             
+
+
+        }
+
+
+
+
+
+}) 
+   
+
+
 
 // Animation Update
 
 function animate() {
     requestAnimationFrame( animate );
 
+
+   
+
     controls.update()
+
     renderer.render( scene, camera );
 };
 
 animate();
+
