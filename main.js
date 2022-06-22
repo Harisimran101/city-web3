@@ -23,7 +23,7 @@ const scene = new THREE.Scene();
 
 const camera = new THREE.PerspectiveCamera( 65, size.width / size.height , 0.01, 10000 );
 
-camera.position.z = 120;
+camera.position.z = 220;
 camera.position.y = 25;
 
 
@@ -50,7 +50,7 @@ controls.enableDamping = true
 controls.zoomSpeed = 1.8;
 controls.minDistance = 25;
 
-controls.maxDistance = 215;
+controls.maxDistance = 265;
 controls.maxPolarAngle = Math.PI / 1.9
 
 // Lights 
@@ -162,10 +162,10 @@ window.addEventListener('click', () =>{
             if(intersects[0].object.name == 'Red-section'){
                 anime({
                     targets: camera.position,
-                    x: [camera.position.x,intersects[0].object.position.x],
-                    y: [camera.position.y,intersects[0].object.position.y + 50],
+                    x: [camera.position.x,intersects[0].point.x],
+                    y: [camera.position.y,intersects[0].point.y + 20],
     
-                    z: [camera.position.z,intersects[0].object.position.z + 120],
+                    z: [camera.position.z,intersects[0].point.z + 30],
                     delay: 200,
                     easing: 'easeInOutSine'
                   })
@@ -176,10 +176,10 @@ window.addEventListener('click', () =>{
                
               anime({
                 targets: camera.position,
-                x: [camera.position.x,intersects[0].object.position.x],
-                y: [camera.position.y,intersects[0].object.position.y + 50],
+                x: [camera.position.x,intersects[0].point.x],
+                y: [camera.position.y,intersects[0].point.y + 20],
 
-                z: [camera.position.z,intersects[0].object.position.z + 20],
+                z: [camera.position.z,intersects[0].point.z + 30],
                 delay: 200,
                 easing: 'easeInOutSine'
 
@@ -189,13 +189,12 @@ window.addEventListener('click', () =>{
 
             else if(intersects[0].object.name == 'green-section'){
     
-
                 anime({
                     targets: camera.position,
-                    x: [camera.position.x,intersects[0].object.position.x],
-                    y: [camera.position.y,intersects[0].object.position.y + 50],
+                    x: [camera.position.x,intersects[0].point.x],
+                    y: [camera.position.y,intersects[0].point.y + 20],
     
-                    z: [camera.position.z,intersects[0].object.position.z + 20],
+                    z: [camera.position.z,intersects[0].point.z - 25],
                     delay: 200,
                     easing: 'easeInOutSine'
 
